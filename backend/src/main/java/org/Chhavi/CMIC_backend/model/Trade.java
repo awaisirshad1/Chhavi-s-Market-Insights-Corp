@@ -1,11 +1,14 @@
+import java.util.Date;
+
 public class Trade {
-    private string trader;
+
+    private String trader;
     private double amount;
     private double price;
     private Date time;
     private String ticker;
 
-    public Trade(string trader, double amount, double price, Date time, String ticker) {
+    public Trade(String trader, double amount, double price, Date time, String ticker) {
         this.trader = trader;
         this.amount = amount;
         this.price = price;
@@ -13,11 +16,11 @@ public class Trade {
         this.ticker = ticker;
     }
 
-    public string getTrader() {
+    public String getTrader() {
         return trader;
     }
 
-    public void setTrader(string trader) {
+    public void setTrader(String trader) {
         this.trader = trader;
     }
 
