@@ -44,9 +44,6 @@ public class DummyInitializer_Trade {
 
             }
 
-
-
-
             // Save all users to the database
             tradeRepository.saveAll(tradeList);
         };
