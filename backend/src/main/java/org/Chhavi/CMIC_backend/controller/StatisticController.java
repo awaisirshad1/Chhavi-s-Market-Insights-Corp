@@ -21,14 +21,29 @@ public class StatisticController {
     @Autowired
     TradeRepository tradeRepository;
 
-    @GetMapping("/percent-of-total")
-    public Map<String, Double> percentOfTotalTrades(){
+    @GetMapping("/totalValue")
+    public Map<String, Double> getTradeValues(){
+        Map<String, Double> traderCashFlow = new HashMap<>();
+        List<Trade> trades = tradeRepository.findAll();
+
+        for (Trade t : trades){
+            double tradeValue = t.getAmount() * t.getPrice();
+            traderCashFlow.put(t.getTrader(),
+                    traderCashFlow.getOrDefault(t.getTrader(), 0.0)+tradeValue);
+        }
+
+        return traderCashFlow;
+    }
+
+    @GetMapping("/tradingVolumePercentage")
+    public Map<String, Double> getCompanyTradingVolumePercentages(){
         Map<String, Double> map = new HashMap<>();
         List<Trade> trades = tradeRepository.findAll();
         double total = 0;
         for (Trade t: trades){
-            total += t.getAmount();
-            map.put(t.getTicker(), map.getOrDefault(t.getTicker(), 0.0)+t.getAmount());
+            double tradeValue = t.getAmount() * t.getPrice();
+            total += tradeValue;
+            map.put(t.getTicker(), map.getOrDefault(t.getTicker(), 0.0)+tradeValue);
         }
         for(Map.Entry<String, Double> entry: map.entrySet()){
             map.put(entry.getKey(), entry.getValue()/total);
