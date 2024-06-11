@@ -27,9 +27,9 @@ public class DummyInitializer_Trade {
     CommandLineRunner initDatabase(TradeRepository tradeRepository) {
         return args -> {
             // Create a list of sample users
-            BufferedReader reader = new BufferedReader(new FileReader("backend/src/main/java/org" +
+            BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir")+"/backend/src/main/java/org" +
                     "/Chhavi/CMIC_backend/config/stock_trading.csv"));
-
+            log.info(System.getProperty("user.dir"));
             List<Trade> tradeList = new ArrayList<>();
 
 
