@@ -30,165 +30,56 @@
             </div>
         </section>
 
+
+
     <div class="table-wrap">
-        <table class="sortable">
-          <caption>
-            Stock Insights
-            <span class="sr-only">, column headers with buttons are sortable.</span>
-          </caption>
-          <thead>
-            <tr>
-              <th>
-                <button>
-                  Buyer
-                  <span aria-hidden="true"></span>
-                </button>
-              </th>
-              <th class="num">
-                <button>
-                  Stock Code
-                  <span aria-hidden="true"></span>
-                </button>
-              </th>
-              <th class="num">
-                <button>
-                  Shares Bought
-                  <span aria-hidden="true"></span>
-                </button>
-              </th>
-            
-              <th class="num">
-                <button>
-                  Share Price
-                  <span aria-hidden="true"></span>
-                </button>
-              </th>
+          
+      <table class="sortable">
+        <caption>
+          Stock Insights
+          <span class="sr-only">, column headers with buttons are sortable.</span>
+        </caption>
+        <thead>
+          <tr>
+            <th>
+              <button>
+                Buyer
+                <span aria-hidden="true"></span>
+              </button>
+            </th>
+            <th>
+              <button>
+                Ticker
+                <span aria-hidden="true"></span>
+              </button>
+            </th>
+            <th class="num">
+              <button>
+                Amount
+                <span aria-hidden="true"></span>
+              </button>
+            </th>
+          
+            <th class="num">
+              <button>
+                Price
+                <span aria-hidden="true"></span>
+              </button>
+            </th>
 
-              <th class="num">
-                <button>
-                  Date
-                  <span aria-hidden="true"></span>
-                </button>
-              </th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td>
-                Fred
-              </td>
-              <td class="num">
-                1
-              </td>
-              <td class="num">
-                4
-              </td>     
-              <td class="num">
-                5
-              </td>
-              <td class="num">
-                24-10
-              </td>
-            </tr>
-
-            <tr>
-                <td>
-                  Sara
-                </td>
-                <td class="num">
-                  2
-                </td>
-                <td class="num">
-                  5
-                </td>     
-                <td class="num">
-                  6
-                </td>
-                <td class="num">
-                    24-11
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                  Jack
-                </td>
-                <td class="num">
-                  3
-                </td>
-                <td class="num">
-                  7
-                </td>     
-                <td class="num">
-                  8
-                </td>
-                <td class="num">
-                    24-14-2
-                </td>
-            </tr>
-
-
-
-            <tr>
-                <td>
-                  Sara
-                </td>
-                <td class="num">
-                  6
-                </td>
-                <td class="num">
-                  5
-                </td>     
-                <td class="num">
-                  12
-                </td>
-                <td class="num">
-                    24-14-1
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    Sara
-                </td>
-                <td class="num">
-                    6
-                </td>
-                <td class="num">
-                    5
-                </td>
-                <td class="num">
-                    12
-                </td>
-                <td class="num">
-                    24-14-1
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    Sara
-                </td>
-                <td class="num">
-                    6
-                </td>
-                <td class="num">
-                    5
-                </td>
-                <td class="num">
-                    12
-                </td>
-                <td class="num">
-                    24-14-1
-                </td>
-            </tr>
-
-
-          </tbody>
-        </table>
+            <th class="date">
+              <button>
+                Date
+                <span aria-hidden="true"></span>
+              </button>
+            </th>
+          </tr>
+        </thead>
+      
+        <tbody id="tableBody"></tbody>
+      </table>
     </div>
-    </div>
+    
 
     <div id="side">
         <section id="search-bar">

@@ -1,5 +1,44 @@
 'use strict';
 
+var array = [
+  {"trader":"Edward","amount":1750.0,"price":7220.0,"time":"2024-01-26T00:15:12.000+00:00","ticker":"AAPL"},
+  {"trader":"Bob","amount":2590.0,"price":8590.0,"time":"2024-06-08T23:15:12.000+00:00","ticker":"MSFT"},
+  {"trader":"Alice","amount":5990.0,"price":6350.0,"time":"2023-08-09T23:15:12.000+00:00","ticker":"AMZN"}
+]
+
+buildTable(array);
+
+function buildTable(data){
+  var table = document.getElementById("tableBody")
+  for(var i=0; i<data.length;i++){
+    var row = `
+    <tr>
+                <td>
+                ${data[i].trader}
+                </td>
+                <td>
+                ${data[i].ticker}
+                </td>
+                <td class="num">
+                ${data[i].amount}
+                </td>     
+                <td class="num">
+                ${data[i].price}
+                </td>
+                <td class="time">
+                ${data[i].time}
+                </td>
+    </tr>
+
+    `
+    table.innerHTML+=row
+  }
+
+}
+
+
+
+
 class SortableTable {
   constructor(tableNode) {
     this.tableNode = tableNode;
