@@ -17,6 +17,27 @@ footer {
     width: 12vw;
 }
 
+#side {
+    width: 240px;
+    /* min-width: 240px; */
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+#middle {
+    margin-left: 20%;
+    padding: 20px;
+    width: 80%;
+    box-sizing: border-box;
+}
+
 .summary-container {
     padding: 1.5rem;
     flex: 1;
@@ -174,3 +195,40 @@ p {
     top: 0;
   }
   
+
+.filter-option {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-family: "Poppins", sans-serif;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="datetime-local"],
+select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: "Poppins", sans-serif;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: "Poppins", sans-serif;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
