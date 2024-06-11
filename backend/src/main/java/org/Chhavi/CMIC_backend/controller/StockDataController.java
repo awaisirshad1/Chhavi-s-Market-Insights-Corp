@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/trades")
-@CrossOrigin(value = "true")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Slf4j
 public class StockDataController {
 
