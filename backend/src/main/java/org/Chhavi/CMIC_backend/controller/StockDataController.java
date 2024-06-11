@@ -26,13 +26,13 @@ public class StockDataController {
     }
 
 
-    @GetMapping(path="/{uuid}")
-    public Trade getTradeById(@PathVariable(name="uuid") String param){
+    @GetMapping(path="/{id}")
+    public Trade getTradeById(@PathVariable(name="id") Long id){
         Optional<Trade> result = null;
-        log.info("uuid: "+param);
-        UUID uuid = UUID.fromString(param);
+        log.info("id: "+id);
+//        Long id = Long (param);
         try{
-            result = tradeRepository.findById(uuid);
+            result = tradeRepository.findById(id);
             log.info(result.toString());
         }catch (Exception e){
             log.error(e.toString());
