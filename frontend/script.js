@@ -1,5 +1,36 @@
 'use strict';
 
+async function fetchTransactions() {
+  const url = 'http://localhost:8080/trades'
+  try {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        }
+      });
+      if (!response.ok) {
+          throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      console.log('Data loaded:', data); 
+      displayMessage('Data successfully loaded');
+  } catch (error) {
+      console.error('Error fetching transactions:', error);
+      displayMessage('Failed to load data'); 
+  }
+}
+
+
+function displayMessage(message) {
+  const messageDiv = document.getElementById('message');
+  messageDiv.textContent = message;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  fetchTransactions();
+});
+
 class SortableTable {
   constructor(tableNode) {
     this.tableNode = tableNode;
