@@ -9,25 +9,57 @@
 </head>
 <body>
     <header>
-    <img src="./assets/logo.png" class="logo">
-</header>
+        <img src="./assets/logo.png" class="logo">
+    </header>
 
-    <section id="summary">
-        <div class="summary-container">
-            <div class="individual-summary-container">
-                <h2>$50M</h2>
-                <p>sales today</p>
+    <div id="middle">
+        <section id="summary">
+            <div class="summary-container">
+                <div class="individual-summary-container">
+                    <h2>$50M</h2>
+                    <p>sales today</p>
+                </div>
+                <div class="individual-summary-container">
+                    <h2>20</h2>
+                    <p>new companies added</p>
+                </div>
+                <div class="individual-summary-container">
+                    <h2>10%</h2>
+                    <p>increase in inflation</p>
+                </div>
             </div>
-            <div class="individual-summary-container">
-                <h2>20</h2>
-                <p>new companies added</p>
+        </section>
+    </div>
+
+    <div id="side">
+        <section id="search-bar">
+            <div class="filter-option">
+                <label for="buyer">Buyer</label>
+                <input type="text" id="buyer" placeholder="Enter buyer name">
             </div>
-            <div class="individual-summary-container">
-                <h2>10%</h2>
-                <p>increase in inflation</p>
+            <div class="filter-option">
+                <label for="amount">Amount</label>
+                <input type="number" id="amount" placeholder="Enter amount">
             </div>
-        </div>
-    </section>
+            <div class="filter-option">
+                <label for="price">Price</label>
+                <input type="number" id="price" placeholder="Enter price">
+            </div>
+            <div class="filter-option">
+                <label for="time">Time from</label>
+                <input type="datetime-local" id="time-from">
+            </div>
+            <div class="filter-option">
+                <label for="time">Time to</label>
+                <input type="datetime-local" id="time-to">
+            </div>
+            <div class="filter-option">
+                <label for="ticker">Ticker</label>
+                <input type="text" id="ticker" placeholder="Enter ticker">
+            </div>
+            <button id="filterButton">Apply Filter</button>
+        </section>
+    </div>
 
     <footer>Copyright &#169; 2024 Citi. All Rights Reserved.</footer>
 <script src="script.js"></script>
