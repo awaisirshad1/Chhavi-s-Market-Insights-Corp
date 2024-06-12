@@ -1,5 +1,12 @@
 'use strict';
 
+document.addEventListener("DOMContentLoaded", function() {
+  fetchTransactions();
+  document.getElementById('filterButton').addEventListener('click', filterData);
+});
+
+let staticData = new Array();
+
 async function fetchTransactions() {
   const url = 'http://localhost:8080/trades'
   try {
@@ -13,8 +20,10 @@ async function fetchTransactions() {
           throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      console.log('Data loaded:', data); 
-      displayMessage('Data successfully loaded');
+      staticData = data;
+      console.log('Data loaded:', staticData); 
+      populateFilterOptions(staticData)
+      displayData(staticData)
   } catch (error) {
       console.error('Error fetching transactions:', error);
       displayMessage('Failed to load data'); 
@@ -27,20 +36,99 @@ function displayMessage(message) {
   messageDiv.textContent = message;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  fetchTransactions();
-});
+function populateFilterOptions(data) {
+  const buyers = new Set();
+  const tickers = new Set();
 
-var array = [
-  {"trader":"Edward","amount":1750.0,"price":7220.0,"time":"2024-01-26T00:15:12.000+00:00","ticker":"AAPL"},
-  {"trader":"Bob","amount":2590.0,"price":8590.0,"time":"2024-06-08T23:15:12.000+00:00","ticker":"MSFT"},
-  {"trader":"Alice","amount":5990.0,"price":6350.0,"time":"2023-08-09T23:15:12.000+00:00","ticker":"AMZN"}
-]
+  data.forEach(item => {
+      buyers.add(item.trader);
+      tickers.add(item.ticker);
+  });
 
-buildTable(array);
+  // buyers = Array.from(buyers).sort();
+  // traders = Array.from(traders).sort();
 
-function buildTable(data){
+  const buyerSelect = document.getElementById('buyer');
+  const tickerSelect = document.getElementById('ticker');
+
+  buyers.forEach(buyer => {
+      const option = document.createElement('option');
+      option.value = buyer;
+      option.textContent = buyer;
+      buyerSelect.appendChild(option);
+  });
+
+  tickers.forEach(ticker => {
+      const option = document.createElement('option');
+      option.value = ticker;
+      option.textContent = ticker;
+      tickerSelect.appendChild(option);
+  });
+}
+
+function filterData() {
+  const buyer = document.getElementById('buyer').value;
+  const amountOperator = document.getElementById('amount-operator').value;
+  const amount = document.getElementById('amount').value;
+  const priceOperator = document.getElementById('price-operator').value;
+  const price = document.getElementById('price').value;
+  const timeFrom = document.getElementById('time-from').value;
+  const timeTo = document.getElementById('time-to').value;
+  const ticker = document.getElementById('ticker').value;
+
+  let filteredData = staticData;
+
+  if (buyer) {
+      console.log(buyer);
+      filteredData = filteredData.filter(item => item.trader === buyer);
+  }
+
+  if (amount) {
+      filteredData = filteredData.filter(item => {
+          if (amountOperator === '>') return item.amount > amount;
+          if (amountOperator === '<') return item.amount < amount;
+          if (amountOperator === '=') return item.amount == amount;
+      });
+  }
+
+  if (price) {
+      filteredData = filteredData.filter(item => {
+          if (priceOperator === '>') return item.price > price;
+          if (priceOperator === '<') return item.price < price;
+          if (priceOperator === '=') return item.price == price;
+      });
+  }
+
+  if (timeFrom) {
+      const fromDate = new Date(timeFrom);
+      filteredData = filteredData.filter(item => new Date(item.time) >= fromDate);
+  }
+
+  if (timeTo) {
+      const toDate = new Date(timeTo);
+      filteredData = filteredData.filter(item => new Date(item.time) <= toDate);
+  }
+
+  if (ticker) {
+      filteredData = filteredData.filter(item => item.ticker === ticker);
+  }
+
+  console.log("Filter applied");
+  console.log(filteredData.length);
+  displayData(filteredData);
+}
+
+
+function displayData(data) {
+  buildTable(data);
+  inputStats(data);
+}
+
+function buildTable(data) {
   var table = document.getElementById("tableBody")
+  // clear current content
+  table.innerHTML = '';
+  
   for(var i=0; i<data.length;i++){
     var row = `
     <tr>
@@ -60,14 +148,11 @@ function buildTable(data){
                 ${data[i].time}
                 </td>
     </tr>
-
     `
     table.innerHTML+=row
   }
 
 }
-
-
 
 
 class SortableTable {
@@ -226,53 +311,6 @@ window.addEventListener('load', function () {
   }
 });
 
-var tradesList = [
-                   {
-                     "trader": "Edward",
-                     "amount": 1750,
-                     "price": 7220,
-                     "time": "2024-01-26T00:15:12.000+00:00",
-                     "ticker": "AAPL"
-                   },
-                   {
-                     "trader": "Bob",
-                     "amount": 2590,
-                     "price": 8590,
-                     "time": "2024-06-08T23:15:12.000+00:00",
-                     "ticker": "MSFT"
-                   },
-                   {
-                     "trader": "Alice",
-                     "amount": 5990,
-                     "price": 6350,
-                     "time": "2023-08-09T23:15:12.000+00:00",
-                     "ticker": "AMZN"
-                   },
-                   {
-                     "trader": "Alice",
-                     "amount": 6590,
-                     "price": 6160,
-                     "time": "2023-09-22T23:15:12.000+00:00",
-                     "ticker": "TSLA"
-                   },
-                   {
-                     "trader": "Alice",
-                     "amount": 1880,
-                     "price": 14270,
-                     "time": "2024-03-15T23:15:12.000+00:00",
-                     "ticker": "AAPL"
-                   },
-                   {
-                     "trader": "Edward",
-                     "amount": 7900,
-                     "price": 3270,
-                     "time": "2023-07-24T23:15:12.000+00:00",
-                     "ticker": "AAPL"
-                   }
-                 ];
-
-inputStats(tradesList);
-
 function inputStats(tradesList) {
     var totalShares = 0;
     var totalTradeValue = 0;
@@ -287,7 +325,7 @@ function inputStats(tradesList) {
     var numEntities = totalEntities.size;
 
     var statsValue = [totalShares, totalTradeValue, numEntities];
-    var statsComments = ["total shares traded", "total value of shares traded", "companies traded on CMIC"];
+    var statsComments = ["Total Shares", "Total Value of Shares", "Total Companies Traded"];
 
     var stats = document.getElementsByClassName("statsValue");
     for (let i = 0; i < stats.length; i++) {
