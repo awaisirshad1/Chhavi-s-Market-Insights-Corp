@@ -15,7 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/stats")
-@CrossOrigin(value = "true")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Slf4j
 public class StatisticController {
     @Autowired
