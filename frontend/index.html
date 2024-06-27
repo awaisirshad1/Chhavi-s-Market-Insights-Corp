@@ -80,7 +80,6 @@
 
     <div id="message"></div>
     
-
     <div id="side">
         <section id="search-bar">
             <div class="filter-option">
@@ -125,8 +124,19 @@
         </section>
     </div>
 
-    <footer>Copyright &#169; 2024 Citi. All Rights Reserved.</footer>
-<script type="module" src="script.js"></script>
+    <div id="graphs">
+      <figure class="highcharts-figure">
+        <div id="container"></div>
+      </figure>
+    </div>
 
+    <footer>Copyright &#169; 2024 Citi. All Rights Reserved.</footer>
+
+<script type="module" src="script.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 </body>
 </html>
