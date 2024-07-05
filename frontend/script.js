@@ -342,71 +342,64 @@ function inputStats(tradesList) {
 Highcharts.chart('container', {
 
   title: {
-      text: 'U.S Solar Employment Growth',
-      align: 'left'
-  },
-
-  subtitle: {
-      text: 'By Job Category. Source: <a href="https://irecusa.org/programs/solar-jobs-census/" target="_blank">IREC</a>.',
+      text: 'Stock Prices',
       align: 'left'
   },
 
   yAxis: {
       title: {
-          text: 'Number of Employees'
+          text: 'Price ($)'
       }
   },
 
   xAxis: {
-      accessibility: {
-          rangeDescription: 'Range: 2010 to 2020'
-      }
+        type: 'datetime',
+        dateTimeLabelFormats: {
+                 month: '%b %Y' // Example format: Jan 2023
+             },
+        min: Date.UTC(2023, 5, 1),
+        max: Date.UTC(2024, 5, 30)
+
+
   },
 
-  legend: {
-      layout: 'vertical',
-      align: 'right',
-      verticalAlign: 'middle'
-  },
+//  legend: {
+//      layout: 'vertical',
+//      align: 'right',
+//      verticalAlign: 'middle'
+//  },
 
   plotOptions: {
       series: {
-          label: {
-              connectorAllowed: false
-          },
-          pointStart: 2010
-      }
-  },
+          pointStart: Date.UTC(2023, 5, 1),
+          pointInterval: 24 * 3600 * 1000 * 30
+               }
+      },
 
   series: [{
-      name: 'Installation & Developers',
+      name: 'Microsoft',
       data: [
-          43934, 48656, 65165, 81827, 112143, 142383,
-          171533, 165174, 155157, 161454, 154610
+          10, 23, 54, 63, 23, 56, 34, 23, 54, 34, 62, 33, 12, 34
       ]
   }, {
-      name: 'Manufacturing',
+      name: 'Amazon',
       data: [
-          24916, 37941, 29742, 29851, 32490, 30282,
-          38121, 36885, 33726, 34243, 31050
+          20, 43, 54, 83, 22, 46, 38, 34, 23, 56, 34, 54, 22, 45
       ]
   }, {
-      name: 'Sales & Distribution',
+      name: 'Google',
       data: [
-          11744, 30000, 16005, 19771, 20185, 24377,
-          32147, 30912, 29243, 29213, 25663
+          50, 22, 14, 63, 33, 26, 44, 23, 22, 11, 44, 33, 24, 54
       ]
   }, {
-      name: 'Operations & Maintenance',
+      name: 'Tesla',
       data: [
-          null, null, null, null, null, null, null,
-          null, 11164, 11218, 10077
+          30, 66, 33, 23, 54, 12, 45, 45, 33, 23, 54, 33, 11, 23
       ]
   }, {
-      name: 'Other',
+      name: 'Apple',
       data: [
-          21908, 5548, 8105, 11248, 8989, 11816, 18274,
-          17300, 13053, 11906, 10073
+          54, 23, 45, 34, 55, 33, 12, 41, 39, 48, 54, 23, 48, 34
       ]
   }],
 
