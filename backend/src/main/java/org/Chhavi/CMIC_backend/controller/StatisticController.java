@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +55,6 @@ public class StatisticController {
         }
         return map;
     }
-
     @GetMapping("/percentageOfDailyTrades")
     public Map<String, Double> getPercentageOfDailyTrades(){
         Map<String, Double> map = new HashMap<>();
@@ -67,4 +67,29 @@ public class StatisticController {
         return stockRepository.findAll();
     }
 
-}
+
+    @GetMapping("/mostTraded")
+    public Map<String, Double> getMostFrequentTrade(){
+        Map<String, Double> map = new HashMap<>();
+        List<Trade> trades = tradeRepository.findAll();
+        double total = 0;
+        for (Trade t: trades){
+            double tradeValue = t.getAmount();
+            total += tradeValue;
+            map.put(t.getTicker(), map.getOrDefault(t.getTicker(), 0.0)+tradeValue);
+        }
+        Double maxValueInMap = (Collections.max(map.values()));
+        Map<String, Double> result = new HashMap<>();
+        for (Map.Entry<String, Double> entry :
+                map.entrySet()) {
+
+            if (entry.getValue().equals(maxValueInMap)) {
+
+                result.put(entry.getKey(), entry.getValue());
+                ;
+            }
+        }
+        return result;
+    }}
+
+
