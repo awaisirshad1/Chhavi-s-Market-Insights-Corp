@@ -1,7 +1,9 @@
 package org.Chhavi.CMIC_backend.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.Chhavi.CMIC_backend.model.Stock;
 import org.Chhavi.CMIC_backend.model.Trade;
+import org.Chhavi.CMIC_backend.repository.StockRepository;
 import org.Chhavi.CMIC_backend.repository.TradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,6 +23,8 @@ public class StatisticController {
     @Autowired
     TradeRepository tradeRepository;
 
+    @Autowired
+    StockRepository stockRepository;
     @GetMapping("/totalValue")
     public Map<String, Double> getTradeValues(){
         Map<String, Double> traderCashFlow = new HashMap<>();
@@ -50,4 +54,17 @@ public class StatisticController {
         }
         return map;
     }
+
+    @GetMapping("/percentageOfDailyTrades")
+    public Map<String, Double> getPercentageOfDailyTrades(){
+        Map<String, Double> map = new HashMap<>();
+
+        return map;
+    }
+
+    @GetMapping("/getAllStockData")
+    public List<Stock> getAllStockData(){
+        return stockRepository.findAll();
+    }
+
 }

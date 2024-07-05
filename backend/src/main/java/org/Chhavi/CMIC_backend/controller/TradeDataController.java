@@ -1,6 +1,5 @@
 package org.Chhavi.CMIC_backend.controller;
 
-import jakarta.websocket.server.PathParam;
 import lombok.extern.slf4j.Slf4j;
 import org.Chhavi.CMIC_backend.model.Trade;
 import org.Chhavi.CMIC_backend.repository.TradeRepository;
@@ -9,13 +8,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/trades")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Slf4j
-public class StockDataController {
+public class TradeDataController {
 
     @Autowired
     TradeRepository tradeRepository;
