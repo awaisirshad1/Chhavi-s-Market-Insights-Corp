@@ -16,192 +16,94 @@
         <section id="summary">
             <div class="summary-container">
                 <div class="individual-summary-container">
-                    <h2>$50M</h2>
-                    <p>sales today</p>
+                    <h2 class="statsValue">$50M</h2>
+                    <p class="statsComment">sales today</p>
                 </div>
                 <div class="individual-summary-container">
-                    <h2>20</h2>
-                    <p>new companies added</p>
+                    <h2 class="statsValue">20</h2>
+                    <p class="statsComment">new companies added</p>
                 </div>
                 <div class="individual-summary-container">
-                    <h2>10%</h2>
-                    <p>increase in inflation</p>
+                    <h2 class="statsValue">10%</h2>
+                    <p class="statsComment">increase in inflation</p>
                 </div>
             </div>
         </section>
 
-    <div class="table-wrap">
-        <table class="sortable">
-          <caption>
-            Stock Insights
-            <span class="sr-only">, column headers with buttons are sortable.</span>
-          </caption>
-          <thead>
-            <tr>
-              <th>
-                <button>
-                  Buyer
-                  <span aria-hidden="true"></span>
-                </button>
-              </th>
-              <th class="num">
-                <button>
-                  Stock Code
-                  <span aria-hidden="true"></span>
-                </button>
-              </th>
-              <th class="num">
-                <button>
-                  Shares Bought
-                  <span aria-hidden="true"></span>
-                </button>
-              </th>
-            
-              <th class="num">
-                <button>
-                  Share Price
-                  <span aria-hidden="true"></span>
-                </button>
-              </th>
+        <div class="table-wrap">
+          <table class="sortable">
+            <caption>
+              Stock Insights
+              <span class="sr-only">, column headers with buttons are sortable.</span>
+            </caption>
+            <thead>
+              <tr>
+                <th>
+                  <button>
+                    Buyer
+                    <span aria-hidden="true"></span>
+                  </button>
+                </th>
+                <th>
+                  <button>
+                    Ticker
+                    <span aria-hidden="true"></span>
+                  </button>
+                </th>
+                <th class="num">
+                  <button>
+                    Amount
+                    <span aria-hidden="true"></span>
+                  </button>
+                </th>
+              
+                <th class="num">
+                  <button>
+                    Price
+                    <span aria-hidden="true"></span>
+                  </button>
+                </th>
 
-              <th class="num">
-                <button>
-                  Date
-                  <span aria-hidden="true"></span>
-                </button>
-              </th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td>
-                Fred
-              </td>
-              <td class="num">
-                1
-              </td>
-              <td class="num">
-                4
-              </td>     
-              <td class="num">
-                5
-              </td>
-              <td class="num">
-                24-10
-              </td>
-            </tr>
-
-            <tr>
-                <td>
-                  Sara
-                </td>
-                <td class="num">
-                  2
-                </td>
-                <td class="num">
-                  5
-                </td>     
-                <td class="num">
-                  6
-                </td>
-                <td class="num">
-                    24-11
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                  Jack
-                </td>
-                <td class="num">
-                  3
-                </td>
-                <td class="num">
-                  7
-                </td>     
-                <td class="num">
-                  8
-                </td>
-                <td class="num">
-                    24-14-2
-                </td>
-            </tr>
-
-
-
-            <tr>
-                <td>
-                  Sara
-                </td>
-                <td class="num">
-                  6
-                </td>
-                <td class="num">
-                  5
-                </td>     
-                <td class="num">
-                  12
-                </td>
-                <td class="num">
-                    24-14-1
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    Sara
-                </td>
-                <td class="num">
-                    6
-                </td>
-                <td class="num">
-                    5
-                </td>
-                <td class="num">
-                    12
-                </td>
-                <td class="num">
-                    24-14-1
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    Sara
-                </td>
-                <td class="num">
-                    6
-                </td>
-                <td class="num">
-                    5
-                </td>
-                <td class="num">
-                    12
-                </td>
-                <td class="num">
-                    24-14-1
-                </td>
-            </tr>
-
-
-          </tbody>
-        </table>
-    </div>
+                <th class="date">
+                  <button>
+                    Date
+                    <span aria-hidden="true"></span>
+                  </button>
+                </th>
+              </tr>
+            </thead>
+          
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
     </div>
 
+    <div id="message"></div>
+    
     <div id="side">
         <section id="search-bar">
             <div class="filter-option">
                 <label for="buyer">Buyer</label>
-                <input type="text" id="buyer" placeholder="Enter buyer name">
+                <select id="buyer">
+                  <option value="">All</option>
+                </select>
             </div>
             <div class="filter-option">
                 <label for="amount">Amount</label>
+                <select id="amount-operator">
+                  <option value=">">></option>
+                  <option value="<"><</option>
+                  <option value="=">=</option>
+                </select>
                 <input type="number" id="amount" placeholder="Enter amount">
             </div>
             <div class="filter-option">
                 <label for="price">Price</label>
+                <select id="price-operator">
+                  <option value=">">></option>
+                  <option value="<"><</option>
+                  <option value="=">=</option>
+                </select>
                 <input type="number" id="price" placeholder="Enter price">
             </div>
             <div class="filter-option">
@@ -214,13 +116,27 @@
             </div>
             <div class="filter-option">
                 <label for="ticker">Ticker</label>
-                <input type="text" id="ticker" placeholder="Enter ticker">
+                <select id="ticker">
+                  <option value="">All</option>
+                </select>
             </div>
-            <button id="filterButton">Apply Filter</button>
+            <button id="filterButton">Filter</button>
         </section>
     </div>
 
-    <footer>Copyright &#169; 2024 Citi. All Rights Reserved.</footer>
-<script src="script.js"></script>
+    <div id="graphs">
+      <figure class="highcharts-figure">
+        <div id="container"></div>
+      </figure>
+    </div>
+
+    <footer>Copyright &#169; 2024 CMIC. All Rights Reserved.</footer>
+
+<script type="module" src="script.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 </body>
 </html>
