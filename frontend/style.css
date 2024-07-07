@@ -310,7 +310,7 @@ input{
 }
 
 .highcharts-data-table table {
-    font-family: Verdana, sans-serif;
+    font-family: Poppins, sans-serif;
     border-collapse: collapse;
     border: 1px solid #ebebeb;
     margin: 10px auto;
@@ -349,13 +349,13 @@ input{
 
 .pie-chart,
 .highcharts-data-table table {
-    min-width: 500px;
-    max-width: 500px;
+    min-width: 250px;
+    max-width: 600px;
     margin: 1em auto;
 }
 
 .highcharts-data-table table {
-    font-family: Verdana, sans-serif;
+    font-family: Poppins, sans-serif;
     border-collapse: collapse;
     border: 1px solid #ebebeb;
     margin: 10px auto;
@@ -391,5 +391,5 @@ input{
 }
 
 input[type="number"] {
-    min-width: 50px;
+    min-width: 40px;
 }
