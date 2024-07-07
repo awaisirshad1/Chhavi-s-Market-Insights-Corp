@@ -130,6 +130,11 @@ function buildTable(data) {
   table.innerHTML = '';
   
   for(var i=0; i<data.length;i++){
+    // Parse the date string to a Date object
+    const date = new Date(data[i].time);
+
+    // Format the date to a suitable format
+    const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}:${String(date.getSeconds()).padStart(2, '0')}`;
     var row = `
     <tr>
                 <td>
@@ -145,7 +150,7 @@ function buildTable(data) {
                 ${data[i].price}
                 </td>
                 <td class="time">
-                ${data[i].time}
+                ${formattedDate}
                 </td>
     </tr>
     `
