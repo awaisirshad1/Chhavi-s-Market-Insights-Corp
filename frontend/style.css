@@ -21,8 +21,8 @@ footer {
     width: 240px;
     /* min-width: 240px; */
     padding: 20px;
-    background-color: #ffffff;
-    border: 1px solid #ccc;
+    background-color: #004685;
+    /* border: 1px solid #ccc; */
     position: fixed;
     top: 0;
     left: 0;
@@ -245,6 +245,8 @@ label {
     display: block;
     margin-bottom: 5px;
     font-family: "Poppins", sans-serif;
+    font-weight: bold;
+    color: #ffffff;
 }
 
 input[type="text"],
@@ -252,9 +254,9 @@ input[type="number"],
 input[type="datetime-local"],
 select {
     width: 100%;
-    padding: 8px;
+    padding: 9px;
     box-sizing: border-box;
-    border: 1px solid #ccc;
+    border: 1px solid #0086FF;
     border-radius: 4px;
     font-family: "Poppins", sans-serif;
 }
@@ -268,11 +270,19 @@ select {
     border-radius: 4px;
     cursor: pointer;
     font-family: "Poppins", sans-serif;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 #filterButton:hover {
     background-color: #0056b3;
 }
+
+input{
+    margin-top: 3px;
+}
+
+/* line chart portion */
 
 .highcharts-figure,
 .highcharts-data-table table {
@@ -316,6 +326,8 @@ select {
 .highcharts-data-table tr:hover {
     background: #f1f7ff;
 }
+
+/* pie chart portion */
 
 .pie-chart,
 .highcharts-data-table table {
