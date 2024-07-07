@@ -421,24 +421,25 @@ Highcharts.chart('container', {
               }
           }
       }]
+  },
+
+  credits: {
+    enabled: false
   }
 
 });
 
 Highcharts.chart('pie-container', {
   chart: {
-      type: 'pie'
+      type: 'pie',
   },
   title: {
-      text: 'Market Composition'
+      text: 'Market Composition',
+      align: 'left'
   },
   tooltip: {
       valueSuffix: '%'
   },
-  // subtitle: {
-  //     text:
-  //     ''
-  // },
   plotOptions: {
       series: {
           allowPointSelect: true,
@@ -451,7 +452,7 @@ Highcharts.chart('pie-container', {
               distance: -40,
               format: '{point.percentage:.1f}%',
               style: {
-                  fontSize: '1.2em',
+                  fontSize: '1em',
                   textOutline: 'none',
                   opacity: 0.7
               },
@@ -492,5 +493,8 @@ Highcharts.chart('pie-container', {
               }
           ]
       }
-  ]
+  ],
+  credits: {
+    enabled: false
+  }
 });
