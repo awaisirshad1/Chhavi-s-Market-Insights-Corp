@@ -19,7 +19,7 @@
                     <h2 class="statsValue">$50M</h2>
                     <p class="statsComment">sales today</p>
                 </div>
-                <div class="individual-summary-container">
+                <div class="individual-summary-container-2">
                     <h2 class="statsValue">20</h2>
                     <p class="statsComment">new companies added</p>
                 </div>
@@ -32,7 +32,7 @@
 
         <div class="table-wrap">
           <table class="sortable">
-            <caption>
+            <caption class="table-caption">
               Stock Insights
               <span class="sr-only">, column headers with buttons are sortable.</span>
             </caption>
@@ -120,13 +120,16 @@
                   <option value="">All</option>
                 </select>
             </div>
-            <button id="filterButton">Filter</button>
+            <button id="filterButton">SEARCH</button>
         </section>
     </div>
 
     <div id="graphs">
       <figure class="highcharts-figure">
         <div id="container"></div>
+      </figure>
+      <figure class="pie-chart">
+        <div id="pie-container"></div>
       </figure>
     </div>
 

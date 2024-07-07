@@ -130,6 +130,11 @@ function buildTable(data) {
   table.innerHTML = '';
   
   for(var i=0; i<data.length;i++){
+    // Parse the date string to a Date object
+    const date = new Date(data[i].time);
+
+    // Format the date to a suitable format
+    const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}:${String(date.getSeconds()).padStart(2, '0')}`;
     var row = `
     <tr>
                 <td>
@@ -145,7 +150,7 @@ function buildTable(data) {
                 ${data[i].price}
                 </td>
                 <td class="time">
-                ${data[i].time}
+                ${formattedDate}
                 </td>
     </tr>
     `
@@ -418,4 +423,74 @@ Highcharts.chart('container', {
       }]
   }
 
+});
+
+Highcharts.chart('pie-container', {
+  chart: {
+      type: 'pie'
+  },
+  title: {
+      text: 'Market Composition'
+  },
+  tooltip: {
+      valueSuffix: '%'
+  },
+  // subtitle: {
+  //     text:
+  //     ''
+  // },
+  plotOptions: {
+      series: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: [{
+              enabled: true,
+              distance: 20
+          }, {
+              enabled: true,
+              distance: -40,
+              format: '{point.percentage:.1f}%',
+              style: {
+                  fontSize: '1.2em',
+                  textOutline: 'none',
+                  opacity: 0.7
+              },
+              filter: {
+                  operator: '>',
+                  property: 'percentage',
+                  value: 10
+              }
+          }]
+      }
+  },
+  series: [
+      {
+          name: 'Percentage',
+          colorByPoint: true,
+          data: [
+              {
+                  name: 'Microsoft',
+                  y: 55.02
+              },
+              {
+                  name: 'Amazon',
+                  sliced: true,
+                  selected: true,
+                  y: 26.71
+              },
+              {
+                  name: 'Google',
+                  y: 1.09
+              },
+              {
+                  name: 'Tesla',
+                  y: 15.5
+              },
+              {
+                  name: 'Apple',
+                  y: 1.68
+              }
+          ]
+      }
+  ]
 });
