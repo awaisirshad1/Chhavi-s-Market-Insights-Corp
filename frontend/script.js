@@ -429,72 +429,142 @@ Highcharts.chart('container', {
 
 });
 
-Highcharts.chart('pie-container', {
-  chart: {
-      type: 'pie',
-  },
-  title: {
-      text: 'Market Composition',
-      align: 'left'
-  },
-  tooltip: {
-      valueSuffix: '%'
-  },
-  plotOptions: {
-      series: {
-          allowPointSelect: true,
-          cursor: 'pointer',
-          dataLabels: [{
-              enabled: true,
-              distance: 20
-          }, {
-              enabled: true,
-              distance: -40,
-              format: '{point.percentage:.1f}%',
-              style: {
-                  fontSize: '1em',
-                  textOutline: 'none',
-                  opacity: 0.7
-              },
-              filter: {
-                  operator: '>',
-                  property: 'percentage',
-                  value: 10
-              }
-          }]
-      }
-  },
-  series: [
-      {
+// Highcharts.chart('pie-container', {
+//   chart: {
+//       type: 'pie',
+//   },
+//   title: {
+//       text: 'Market Composition',
+//       align: 'left'
+//   },
+//   tooltip: {
+//       valueSuffix: '%'
+//   },
+//   plotOptions: {
+//       series: {
+//           allowPointSelect: true,
+//           cursor: 'pointer',
+//           dataLabels: [{
+//               enabled: true,
+//               distance: 20
+//           }, {
+//               enabled: true,
+//               distance: -40,
+//               format: '{point.percentage:.1f}%',
+//               style: {
+//                   fontSize: '1em',
+//                   textOutline: 'none',
+//                   opacity: 0.7
+//               },
+//               filter: {
+//                   operator: '>',
+//                   property: 'percentage',
+//                   value: 10
+//               }
+//           }]
+//       }
+//   },
+//   series: [
+//       {
+//           name: 'Percentage',
+//           colorByPoint: true,
+//           data: [
+//               {
+//                   name: 'Microsoft',
+//                   y: 55.02
+//               },
+//               {
+//                   name: 'Amazon',
+//                   sliced: true,
+//                   selected: true,
+//                   y: 26.71
+//               },
+//               {
+//                   name: 'Google',
+//                   y: 1.09
+//               },
+//               {
+//                   name: 'Tesla',
+//                   y: 15.5
+//               },
+//               {
+//                   name: 'Apple',
+//                   y: 1.68
+//               }
+//           ]
+//       }
+//   ],
+//   credits: {
+//     enabled: false
+//   }
+// });
+
+document.addEventListener("DOMContentLoaded", function() {
+  fetchChartData().then(chartData => {
+      renderChart(chartData);
+  }).catch(error => {
+      console.error('Error fetching the data:', error);
+  });
+});
+
+function fetchChartData() {
+  return fetch('http://localhost:8080/stats/tradingVolumePercentage')
+      .then(response => response.json())
+      .then(data => {
+          return Object.keys(data).map(key => {
+              return {
+                  name: key,
+                  y: data[key] * 100 // Converting to percentage
+              };
+          });
+      });
+}
+
+function renderChart(chartData) {
+  Highcharts.chart('pie-container', {
+    chart: {
+        type: 'pie',
+    },
+    title: {
+        text: 'Market Composition',
+        align: 'left'
+    },
+    tooltip: {
+        valueSuffix: '%'
+    },
+    plotOptions: {
+        series: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: [{
+                enabled: true,
+                distance: 20
+            }, {
+                enabled: true,
+                distance: -40,
+                format: '{point.percentage:.1f}%',
+                style: {
+                    fontSize: '1em',
+                    textOutline: 'none',
+                    opacity: 0.7
+                },
+                filter: {
+                    operator: '>',
+                    property: 'percentage',
+                    value: 10
+                }
+            }]
+        }
+    },
+    series: [
+        {
           name: 'Percentage',
           colorByPoint: true,
-          data: [
-              {
-                  name: 'Microsoft',
-                  y: 55.02
-              },
-              {
-                  name: 'Amazon',
-                  sliced: true,
-                  selected: true,
-                  y: 26.71
-              },
-              {
-                  name: 'Google',
-                  y: 1.09
-              },
-              {
-                  name: 'Tesla',
-                  y: 15.5
-              },
-              {
-                  name: 'Apple',
-                  y: 1.68
-              }
-          ]
-      }
-  ],
-  credits: {
-    enabled: false
-  }
-});
+          data: chartData
+        }
+    ],
+    credits: {
+      enabled: false
+    }
+  });
+}
