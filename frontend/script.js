@@ -3,6 +3,19 @@
 document.addEventListener("DOMContentLoaded", function() {
   fetchTransactions();
   document.getElementById('filterButton').addEventListener('click', filterData);
+
+  fetchPieChartData().then(pieChartData => {
+      renderPieChart(pieChartData);
+  }).catch(error => {
+      console.error('Error fetching the data:', error);
+  });
+
+  fetchLineChartData().then(lineChartData => {
+    renderLinePieChart(lineChartData);
+  }).catch(error => {
+      console.error('Error fetching the data:', error);
+  });
+
 });
 
 let staticData = new Array();
@@ -27,6 +40,20 @@ async function fetchTransactions() {
   } catch (error) {
       console.error('Error fetching transactions:', error);
       displayMessage('Failed to load data'); 
+  }
+}
+
+async function fetchLineChartData() {
+  try {
+    const response = await fetch('http://localhost:8080/stats/getAllStockData');
+    const data = await response.json();
+    data.sort((a, b) => a.ticker.localeCompare(b.ticker));
+
+    const chartData = processChartData(data);
+    renderLineChart(chartData);
+
+  } catch (error) {
+    console.error('Error fetching data:', error);
   }
 }
 
@@ -343,171 +370,83 @@ function inputStats(tradesList) {
     }
 }
 
+function processChartData(data) {
+  const seriesData = {};
 
-Highcharts.chart('container', {
-
-  title: {
-      text: 'Stock Prices',
-      align: 'left'
-  },
-
-  yAxis: {
-      title: {
-          text: 'Price ($)'
-      }
-  },
-
-  xAxis: {
-        type: 'datetime',
-        dateTimeLabelFormats: {
-                 month: '%b %Y' // Example format: Jan 2023
-             },
-        min: Date.UTC(2023, 5, 1),
-        max: Date.UTC(2024, 5, 30)
-
-
-  },
-
-//  legend: {
-//      layout: 'vertical',
-//      align: 'right',
-//      verticalAlign: 'middle'
-//  },
-
-  plotOptions: {
-      series: {
-          pointStart: Date.UTC(2023, 5, 1),
-          pointInterval: 24 * 3600 * 1000 * 30
-               }
-      },
-
-  series: [{
-      name: 'Microsoft',
-      data: [
-          10, 23, 54, 63, 23, 56, 34, 23, 54, 34, 62, 33, 12, 34
-      ]
-  }, {
-      name: 'Amazon',
-      data: [
-          20, 43, 54, 83, 22, 46, 38, 34, 23, 56, 34, 54, 22, 45
-      ]
-  }, {
-      name: 'Google',
-      data: [
-          50, 22, 14, 63, 33, 26, 44, 23, 22, 11, 44, 33, 24, 54
-      ]
-  }, {
-      name: 'Tesla',
-      data: [
-          30, 66, 33, 23, 54, 12, 45, 45, 33, 23, 54, 33, 11, 23
-      ]
-  }, {
-      name: 'Apple',
-      data: [
-          54, 23, 45, 34, 55, 33, 12, 41, 39, 48, 54, 23, 48, 34
-      ]
-  }],
-
-  responsive: {
-      rules: [{
-          condition: {
-              maxWidth: 500
-          },
-          chartOptions: {
-              legend: {
-                  layout: 'horizontal',
-                  align: 'center',
-                  verticalAlign: 'bottom'
-              }
-          }
-      }]
-  },
-
-  credits: {
-    enabled: false
-  }
-
-});
-
-// Highcharts.chart('pie-container', {
-//   chart: {
-//       type: 'pie',
-//   },
-//   title: {
-//       text: 'Market Composition',
-//       align: 'left'
-//   },
-//   tooltip: {
-//       valueSuffix: '%'
-//   },
-//   plotOptions: {
-//       series: {
-//           allowPointSelect: true,
-//           cursor: 'pointer',
-//           dataLabels: [{
-//               enabled: true,
-//               distance: 20
-//           }, {
-//               enabled: true,
-//               distance: -40,
-//               format: '{point.percentage:.1f}%',
-//               style: {
-//                   fontSize: '1em',
-//                   textOutline: 'none',
-//                   opacity: 0.7
-//               },
-//               filter: {
-//                   operator: '>',
-//                   property: 'percentage',
-//                   value: 10
-//               }
-//           }]
-//       }
-//   },
-//   series: [
-//       {
-//           name: 'Percentage',
-//           colorByPoint: true,
-//           data: [
-//               {
-//                   name: 'Microsoft',
-//                   y: 55.02
-//               },
-//               {
-//                   name: 'Amazon',
-//                   sliced: true,
-//                   selected: true,
-//                   y: 26.71
-//               },
-//               {
-//                   name: 'Google',
-//                   y: 1.09
-//               },
-//               {
-//                   name: 'Tesla',
-//                   y: 15.5
-//               },
-//               {
-//                   name: 'Apple',
-//                   y: 1.68
-//               }
-//           ]
-//       }
-//   ],
-//   credits: {
-//     enabled: false
-//   }
-// });
-
-document.addEventListener("DOMContentLoaded", function() {
-  fetchChartData().then(chartData => {
-      renderChart(chartData);
-  }).catch(error => {
-      console.error('Error fetching the data:', error);
+  data.forEach(entry => {
+    if (!seriesData[entry.ticker]) {
+      seriesData[entry.ticker] = [];
+    }
+    seriesData[entry.ticker].push(entry.close);
   });
-});
 
-function fetchChartData() {
+  const series = Object.keys(seriesData).map(ticker => {
+    return {
+      name: ticker,
+      data: seriesData[ticker]
+    };
+  });
+
+  return series;
+}
+
+function renderLineChart(chartData) {
+  Highcharts.chart('container', {
+
+    title: {
+        text: 'Stock Prices',
+        align: 'left'
+    },
+
+    yAxis: {
+        title: {
+            text: 'Price ($)'
+        }
+    },
+
+    xAxis: {
+          type: 'datetime',
+          dateTimeLabelFormats: {
+                  month: '%b %Y' // Example format: Jan 2023
+              },
+          min: Date.UTC(2023, 5, 1),
+          max: Date.UTC(2024, 5, 30)
+
+
+    },
+
+    plotOptions: {
+        series: {
+            pointStart: Date.UTC(2023, 5, 1),
+            pointInterval: 24 * 3600 * 1000 * 30
+                }
+        },
+
+    series: chartData,
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    },
+
+    credits: {
+      enabled: false
+    }
+
+  });
+}
+
+function fetchPieChartData() {
   return fetch('http://localhost:8080/stats/tradingVolumePercentage')
       .then(response => response.json())
       .then(data => {
@@ -520,7 +459,7 @@ function fetchChartData() {
       });
 }
 
-function renderChart(chartData) {
+function renderPieChart(chartData) {
   Highcharts.chart('pie-container', {
     chart: {
         type: 'pie',
