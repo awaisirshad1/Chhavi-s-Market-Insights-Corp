@@ -2,3 +2,14 @@
 ./backend/.DS_Store
 ./frontend/.DS_Store
 ./backend/target
+/.idea/.gitignore
+/backend/target/classes/application.properties
+/.idea/Chhavi-s-Market-Insights-Corp.iml
+/backend/target/classes/org/Chhavi/CMIC_backend/CmicBackendApplication.class
+/.idea/compiler.xml
+/.idea/encodings.xml
+/.idea/jarRepositories.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/uiDesigner.xml
+/.idea/vcs.xml

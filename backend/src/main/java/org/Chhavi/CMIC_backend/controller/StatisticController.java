@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/stats")
@@ -26,6 +23,8 @@ public class StatisticController {
 
     @Autowired
     StockRepository stockRepository;
+
+//    Endpoints for statistics on trades
     @GetMapping("/totalValue")
     public Map<String, Double> getTradeValues(){
         Map<String, Double> traderCashFlow = new HashMap<>();
@@ -62,12 +61,6 @@ public class StatisticController {
         return map;
     }
 
-    @GetMapping("/getAllStockData")
-    public List<Stock> getAllStockData(){
-        return stockRepository.findAll();
-    }
-
-
     @GetMapping("/mostTraded")
     public Map<String, Double> getMostFrequentTrade(){
         Map<String, Double> map = new HashMap<>();
@@ -90,6 +83,21 @@ public class StatisticController {
             }
         }
         return result;
-    }}
+    }
+
+//    endpoints for statistics on stocks
+    @GetMapping("/getAllStockData")
+    public List<Stock> getAllStockData(){
+        return stockRepository.findAll();
+    }
+
+    @GetMapping("/getVolumeTraded")
+    public Map<String, List<Stock>> getVolumeTraded(){
+        Map<String, List<Stock>> map = new HashMap<>();
+        List<Stock> stockList = new ArrayList<>();
+
+    }
+
+}
 
 
