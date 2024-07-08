@@ -409,7 +409,7 @@ function renderLineChart(chartData) {
         dateTimeLabelFormats: {
                  month: '%b %Y' // Example format: Jan 2023
              },
-        min: Date.UTC(2023, 0, 2),
+        min: Date.UTC(2024, 0, 2),
         max: Date.UTC(2024, 5, 13)
 
 
