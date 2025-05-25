@@ -24,7 +24,10 @@ public class StatisticController {
     @Autowired
     StockRepository stockRepository;
 
-//    Endpoints for statistics on trades
+    String[] stockList = {"AAPL", "AMD", "AMZN", "GOOG","META","MSFT","NFLX","NVDA","TSLA","UBER"};
+
+
+    //    Endpoints for statistics on trades
     @GetMapping("/totalValue")
     public Map<String, Double> getTradeValues(){
         Map<String, Double> traderCashFlow = new HashMap<>();
@@ -94,8 +97,10 @@ public class StatisticController {
     @GetMapping("/getVolumeTraded")
     public Map<String, List<Stock>> getVolumeTraded(){
         Map<String, List<Stock>> map = new HashMap<>();
-        List<Stock> stockList = new ArrayList<>();
+        List<Stock> list = new ArrayList<>();
+        for(String s: stockList){
 
+        }
     }
 
 }

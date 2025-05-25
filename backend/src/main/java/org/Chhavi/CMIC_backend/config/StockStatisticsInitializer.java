@@ -27,9 +27,9 @@ public class StockStatisticsInitializer {
         return args -> {
 
             log.info(System.getProperty("user.dir"));
-            String[] tradeList = {"AAPL", "AMD", "AMZN", "GOOG","META","MSFT","NFLX","NVDA","TSLA","UBER"};
+            String[] stockList = {"AAPL", "AMD", "AMZN", "GOOG","META","MSFT","NFLX","NVDA","TSLA","UBER"};
 
-            for (String ticker : tradeList) {
+            for (String ticker : stockList) {
                 BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir")+"/data/" +
                         ticker+".csv"));
                 String line = reader.readLine();
